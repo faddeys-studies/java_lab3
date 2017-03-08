@@ -1,36 +1,17 @@
 package polylines;
 
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Task4Main {
 
-    public void main(String argv[]) {
-        List<PolyLine> lines = new ArrayList<>();
-        lines.add(new PolyLine(Arrays.asList(
-                new Point(1, 0),
-                new Point(0, 1),
-                new Point(1, 2)
-        )));
-        lines.add(new PolyLineExt(Arrays.asList(
-                new Point(10, 0),
-                new Point(0, 10),
-                new Point(10, 20)
-        )));
-        lines.add(new PolyLine(Arrays.asList(
-                new Point(100, 0),
-                new Point(0, 100),
-                new Point(100, 200)
-        )));
-        lines.add(new PolyLineExt(Arrays.asList(
-                new Point(1000, 0),
-                new Point(0, 1000),
-                new Point(1000, 2000)
-        )));
-        lines.remove(2);
+    public static void sortLinesByLength(List<PolyLine> lines) {
+        lines.sort(Comparator.comparingDouble(PolyLine::length));
+    }
 
+    public static void printLines(List<PolyLine> lines) {
         for(PolyLine pl : lines) {
             System.out.println("\n" + pl.getClass().getName());
             System.out.println(pl.toString() + " of length " + Double.toString(pl.length()));
@@ -42,6 +23,23 @@ public class Task4Main {
                 );
             }
         }
+    }
+
+    public static void main(String argv[]) {
+        List<PolyLine> lines = new ArrayList<>();
+        lines.add(TasksFixture.LINES[0]);
+        lines.add(TasksFixture.LINES[2]);
+        lines.add(TasksFixture.LINES[2]);
+        lines.add(TasksFixture.LINES[3]);
+        lines.add(TasksFixture.LINES[1]);
+        lines.remove(1);
+
+        System.out.println("BEFORE SORTING");
+        printLines(lines);
+
+        System.out.println("\n\nAFTER SORTING");
+        sortLinesByLength(lines);
+        printLines(lines);
     }
 
 }
