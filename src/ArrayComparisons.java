@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class ArrayComparisons {
 
-    public static Boolean[] compareArrays(String[] a, String[] b) {
+    private static Boolean[] compareArrays(Object[] a, Object[] b) {
         return new Boolean[]{
                 b == a,
                 b.equals(a),
@@ -12,7 +12,7 @@ public class ArrayComparisons {
         };
     }
 
-    public static String tableToString(Object[][] objTable) {
+    private static String tableToString(Object[][] objTable) {
         if (objTable.length == 0) {
             return "";
         }
@@ -48,7 +48,7 @@ public class ArrayComparisons {
         return builder.toString();
     }
 
-    public static String ljust(String str, int width) {
+    private static String ljust(String str, int width) {
         int least = width - str.length();
         if (least <= 0) {
             return str;
@@ -57,7 +57,7 @@ public class ArrayComparisons {
         return str + suffix;
     }
 
-    public static Object[] prependArray(Object item, Object arr[]) {
+    private static Object[] prependArray(Object item, Object arr[]) {
         Object result[] = new Object[1+arr.length];
         for(int i = 0; i < arr.length; i++) {
             result[i+1] = arr[i];
@@ -66,15 +66,24 @@ public class ArrayComparisons {
         return result;
     }
 
-    public static void main(String argv[]) {
-        String  a[] = {"1","2","3"};
+    private static void runForArray(Object[] array, Object[] literal) {
         System.out.println(tableToString(new Object[][] {
                 {"b", "b==a", "b.equals(a)", "Arrays.equals(a, b)", "Arrays.deepEquals(a, b)", "b[0] == a[0]"},
-                prependArray("b=a", compareArrays(a, a)),
-                prependArray("b=a.clone()", compareArrays(a, a.clone())),
-                prependArray("b=Arrays.copyOf(a)", compareArrays(a, Arrays.copyOf(a, a.length))),
-                prependArray("b={\"1\",\"2\",\"3\"}", compareArrays(a, new String[]{"1","2","3"})),
+                prependArray("b=a", compareArrays(array, array)),
+                prependArray("b=a.clone()", compareArrays(array, array.clone())),
+                prependArray("b=Arrays.copyOf(a)", compareArrays(array, Arrays.copyOf(array, array.length))),
+                prependArray("b={\"1\",\"2\",\"3\"}", compareArrays(array, literal)),
         }));
+    }
+
+    public static void main(String argv[]) {
+        String  arr1d[] = {"1","2","3"};
+        String  arr2d[][] = {{"1"},{"2"},{"3"}};
+
+        System.out.println("1-D arrays:");
+        runForArray(arr1d, new String[]{"1","2","3"});
+        System.out.println("2-D arrays:");
+        runForArray(arr2d, new String[][]{{"1"},{"2"},{"3"}});
     }
 
 }
