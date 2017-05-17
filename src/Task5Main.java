@@ -1,5 +1,3 @@
-package polylines;
-
 import java.util.Map;
 import java.util.HashMap;
 
@@ -36,7 +34,7 @@ public class Task5Main {
 
         System.out.println("Before removing:");
         printMap(removeFrom);
-        System.out.println("What ill be removed:");
+        System.out.println("What will be removed:");
         printMap(whatToRemove);
 
         mapExclude(removeFrom, whatToRemove);
